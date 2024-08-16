@@ -1,0 +1,755 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: untitled
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '8000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [232, 20.0]
+    rotation: 0
+    state: enabled
+- name: analog_noise_source_x_0
+  id: analog_noise_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    noise_type: analog.GR_GAUSSIAN
+    seed: '0'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 488.0]
+    rotation: 0
+    state: true
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
+  parameters:
+    affinity: ''
+    alias: ''
+    amp: '4'
+    comment: ''
+    freq: '400'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    showports: 'False'
+    type: float
+    waveform: analog.GR_COS_WAVE
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [168, 264.0]
+    rotation: 0
+    state: enabled
+- name: blocks_add_xx_0
+  id: blocks_add_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [520, 396.0]
+    rotation: 0
+    state: true
+- name: blocks_throttle_0
+  id: blocks_throttle
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    ignoretag: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_second: samp_rate
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 396.0]
+    rotation: 0
+    state: enabled
+- name: blocks_wavfile_sink_0
+  id: blocks_wavfile_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    append: 'False'
+    bits_per_sample1: FORMAT_PCM_16
+    bits_per_sample2: FORMAT_PCM_16
+    bits_per_sample3: FORMAT_VORBIS
+    bits_per_sample4: FORMAT_PCM_16
+    comment: ''
+    file: C:\Users\YASH\Desktop\Mtech stuff\Sem 2\TA duties\SW Lab 2\IIR\high.wav
+    format: FORMAT_WAV
+    nchan: '1'
+    samp_rate: samp_rate
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1280, 496.0]
+    rotation: 0
+    state: enabled
+- name: blocks_wavfile_source_0
+  id: blocks_wavfile_source
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    file: C:\Users\YASH\Desktop\Mtech stuff\Sem 2\TA duties\SW Lab 2\Music-loop-piece_22050.wav
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nchan: '1'
+    repeat: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [160, 164.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "# \"\"\"\n# Embedded Python Blocks:\n\n# Each time this file is\
+      \ saved, GRC will instantiate the first class it finds\n# to get ports and parameters\
+      \ of your block. The arguments to __init__  will\n# be the parameters. All of\
+      \ them are required to have default values!\n# \"\"\"\n\n# import numpy as np\n\
+      # from gnuradio import gr\n\n# class blk(gr.sync_block):  # other base classes\
+      \ are basic_block, decim_block, interp_block\n#     \"\"\"Embedded Python Block\
+      \ example - a simple multiply const\"\"\"\n\n#     def __init__(self, feedforward_taps=[1],\
+      \ feedbacktaps=[1]):  # only default arguments here\n#         \"\"\"arguments\
+      \ to this function show up as parameters in GRC\"\"\"\n#         gr.sync_block.__init__(\n\
+      #             self,\n#             name='Embedded Python Block',  # will show\
+      \ up in GRC\n#             in_sig=[np.float32],\n#             out_sig=[np.float32]\n\
+      #         )\n#         # if an attribute with the same name as a parameter is\
+      \ found,\n#         # a callback is registered (properties work, too).\n#  \
+      \       self.feedforward_taps= feedforward_taps # These are your N+1 coefficients.\n\
+      #         self.feedbacktaps= feedbacktaps # These are your M+1 coefficients.\n\
+      \n\n#         self.inputbuffer = np.zeros(len(feedforward_taps)) # Initializing\
+      \ Input Buffer\n#         self.outputbuffer = np.zeros(len(feedbacktaps)) #\
+      \ Initializing Output Buffer\n\n#         self.index = 0\n\n\n\n#     def work(self,\
+      \ input_items, output_items):\n\n#         self.input= input_items[0][0] # First\
+      \ sample of input vector\n#         self.output=0\n\n#         k= len(self.feedforward_taps)-1\n\
+      #         self.output=self.input * self.feedforward_taps[0]  # Equation 4 for\
+      \ b0*x[n]\n#         #################################################################\n\
+      #         # This operation will take care of IIR filter of variable length.\n\
+      #         for i in range(1, k):\n#             self.output = self.output + (self.inputbuffer[k-i]\
+      \ * self.feedforward_taps[i]) - (self.outputbuffer[k-i]*self.feedbacktaps[i])\n\
+      #             # Fill in with suitable code to implement equation 4 of the manual\
+      \ for i = 1 to M and j= 1 to N. See line 40 & 49 for i=0 & j=0.\n#         \
+      \    # This will give you IIR filter of variable filter length/order.\n\n# \
+      \        ###############################################################3\n\
+      #         self.output /= self.feedbacktaps[0]  # Divide by a0 in case a0!=1\
+      \ to realize eq.4.\n\n#         output_items[0][0] = self.output  # Store output\n\
+      #         # print(self.output)\n#         self.inputbuffer[self.index] = input_items[0][0]\
+      \ # Append inputbuffer\n#         self.outputbuffer[self.index] = output_items[0][0]\
+      \ # Append outputbuffer\n#         self.index = self.index + 1\n#         if(self.index\
+      \ > k):\n#             self.inputbuffer = np.zeros(len(self.feedforward_taps))\n\
+      #             self.outputbuffer = np.zeros(len(self.feedbacktaps))\n#      \
+      \       self.index = 0\n\n#         return 1\n\n\"\"\"\nEmbedded Python Blocks:\n\
+      \nEach time this file is saved, GRC will instantiate the first class it finds\n\
+      to get ports and parameters of your block. The arguments to __init__  will\n\
+      be the parameters. All of them are required to have default values!\n\"\"\"\n\
+      \nimport numpy as np\nfrom gnuradio import gr\n\nclass blk(gr.sync_block): \
+      \ # other base classes are basic_block, decim_block, interp_block\n    \"\"\"\
+      Embedded Python Block example - a simple multiply const\"\"\"\n\n    def __init__(self,\
+      \ feedforward_taps=[1], feedbacktaps=[1]):  # only default arguments here\n\
+      \        \"\"\"arguments to this function show up as parameters in GRC\"\"\"\
+      \n        gr.sync_block.__init__(\n            self,\n            name='Embedded\
+      \ Python Block',  # will show up in GRC\n            in_sig=[np.float32],\n\
+      \            out_sig=[np.float32]\n        )\n        # if an attribute with\
+      \ the same name as a parameter is found,\n        # a callback is registered\
+      \ (properties work, too).\n        self.feedforward_taps= feedforward_taps\n\
+      \        self.feedbacktaps= feedbacktaps\n\n          # This is a local array\
+      \ that I define to store old output values. I need to set this up since there\
+      \ is not a set_history function to access old outputs (at least I cannot find\
+      \ such a function in GNU radio).\n        # self.feedforward_taps = 0.0736,\
+      \ 0.2208, 0.2208, 0.0736  # feedforward taps of IIR filter\n        # self.feedbacktaps\
+      \ = 1.0000, -0.9761, 0.8568, -0.2919  # feedback taps of IIR filter\n\n    \
+      \    #H2(z) = (10000-12728z^-1+8100z^-2) / (100-160z^-1+64z^-2)\n        # self.feedforward_taps\
+      \ = 10000, 12728, 8100  # feedforward taps of IIR filter\n        # self.feedbacktaps\
+      \ = 100, 160, 64  # feedback taps of IIR filter\n\n        self.inputbuffer\
+      \ = [0] * (len(self.feedforward_taps)-1) # Initializing Input Buffer\n     \
+      \   self.outputbuffer = [0] * (len(self.feedbacktaps)-1) # Initializing Output\
+      \ Buffer\n\n\n\n    def work(self, input_items, output_items):\n\n        self.input=\
+      \ input_items[0][0] # First sample of input vector\n        self.output=0\n\n\
+      \        k= len(self.feedforward_taps)-1\n        self.output=self.input * self.feedforward_taps[0]\n\
+      \n        #################################################################\n\
+      \        # This operation will take care of IIR filter of variable length.\n\
+      \        for i in range(0, k):\n            self.output+= self.feedforward_taps[i+1]*\
+      \ self.inputbuffer[len(self.inputbuffer)-1-i] - self.feedbacktaps[i+1]* self.outputbuffer[len(self.inputbuffer)-1-i]\n\
+      \        self.output/= self.feedbacktaps[0]\n        ###############################################################3\n\
+      \n        output_items[0][0] = self.output  # Populate our output_items array\n\
+      \        self.inputbuffer.append(input_items[0][0]) # Append inputbuffer\n \
+      \       self.outputbuffer.append(output_items[0][0]) # Append outputbuffer\n\
+      \n        return 1\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    feedbacktaps: '[0.542921369037925, -2.71460684518963, 5.42921369037925, -5.42921369037925,
+      2.71460684518963, -0.542921369037925]'
+    feedforward_taps: '[1, -3.78927637782901, 5.85817458087140, -4.60057367731681,
+      1.83069557793160, -0.294763595264789]'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python Block', 'blk', [('feedforward_taps', '[1]'), ('feedbacktaps',
+      '[1]')], [('0', 'float', 1)], [('0', 'float', 1)], 'Embedded Python Block example
+      - a simple multiply const', ['feedbacktaps', 'feedforward_taps'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 380.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_0_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\nclass blk(gr.sync_block):  # other base classes are\
+      \ basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block example\
+      \ - a simple multiply const\"\"\"\n\n    def __init__(self, feedforward_taps=[1],\
+      \ feedbacktaps=[1]):  # only default arguments here\n        \"\"\"arguments\
+      \ to this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='Embedded Python Block',  # will show up\
+      \ in GRC\n            in_sig=[np.float32],\n            out_sig=[np.float32]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.feedforward_taps=\
+      \ feedforward_taps\n        self.feedbacktaps= feedbacktaps\n\n          # This\
+      \ is a local array that I define to store old output values. I need to set this\
+      \ up since there is not a set_history function to access old outputs (at least\
+      \ I cannot find such a function in GNU radio).\n        # self.feedforward_taps\
+      \ = 0.0736, 0.2208, 0.2208, 0.0736  # feedforward taps of IIR filter\n     \
+      \   # self.feedbacktaps = 1.0000, -0.9761, 0.8568, -0.2919  # feedback taps\
+      \ of IIR filter\n\n        #H2(z) = (10000-12728z^-1+8100z^-2) / (100-160z^-1+64z^-2)\n\
+      \        # self.feedforward_taps = 10000, 12728, 8100  # feedforward taps of\
+      \ IIR filter\n        # self.feedbacktaps = 100, 160, 64  # feedback taps of\
+      \ IIR filter\n\n        self.inputbuffer = [0] * (len(self.feedforward_taps)-1)\
+      \ # Initializing Input Buffer\n        self.outputbuffer = [0] * (len(self.feedbacktaps)-1)\
+      \ # Initializing Output Buffer\n\n\n\n    def work(self, input_items, output_items):\n\
+      \n        self.input= input_items[0][0] # First sample of input vector\n   \
+      \     self.output=0\n\n        k= len(self.feedforward_taps)-1\n        self.output=self.input\
+      \ * self.feedforward_taps[0]\n\n        #################################################################\n\
+      \        # This operation will take care of IIR filter of variable length.\n\
+      \        for i in range(0, k):\n            self.output+= self.feedforward_taps[i+1]*\
+      \ self.inputbuffer[len(self.inputbuffer)-1-i] - self.feedbacktaps[i+1]* self.outputbuffer[len(self.inputbuffer)-1-i]\n\
+      \        self.output/= self.feedbacktaps[0]\n        ###############################################################3\n\
+      \n        output_items[0][0] = self.output  # Populate our output_items array\n\
+      \        self.inputbuffer.append(input_items[0][0]) # Append inputbuffer\n \
+      \       self.outputbuffer.append(output_items[0][0]) # Append outputbuffer\n\
+      \n        return 1\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    feedbacktaps: '[1, -1.6185196, 0.7105934]'
+    feedforward_taps: '[0.0230184, 0.0460368, .0230184]'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python Block', 'blk', [('feedforward_taps', '[1]'), ('feedbacktaps',
+      '[1]')], [('0', 'float', 1)], [('0', 'float', 1)], 'Embedded Python Block example
+      - a simple multiply const', ['feedbacktaps', 'feedforward_taps'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 572.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_0_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\n\nclass blk(gr.sync_block):  # other base classes are\
+      \ basic_block, decim_block, interp_block\n    \"\"\"Embedded Python Block example\
+      \ - a simple multiply const\"\"\"\n\n    def __init__(self, feedforward_taps=[1],\
+      \ feedbacktaps=[1]):  # only default arguments here\n        \"\"\"arguments\
+      \ to this function show up as parameters in GRC\"\"\"\n        gr.sync_block.__init__(\n\
+      \            self,\n            name='Embedded Python Block',  # will show up\
+      \ in GRC\n            in_sig=[np.float32],\n            out_sig=[np.float32]\n\
+      \        )\n        # if an attribute with the same name as a parameter is found,\n\
+      \        # a callback is registered (properties work, too).\n        self.feedforward_taps=\
+      \ feedforward_taps # These are your N+1 coefficients.\n        self.feedbacktaps=\
+      \ feedbacktaps # These are your M+1 coefficients.\n\n\n        self.inputbuffer\
+      \ = np.zeros(len(feedforward_taps)) # Initializing Input Buffer\n        self.outputbuffer\
+      \ = np.zeros(len(feedbacktaps)) # Initializing Output Buffer\n\n        self.index\
+      \ = 0\n\n\n\n    def work(self, input_items, output_items):\n\n        self.input=\
+      \ input_items[0][0] # First sample of input vector\n        self.output=0\n\n\
+      \        k= len(self.feedforward_taps)-1\n        self.output=self.input * self.feedforward_taps[0]\
+      \  # Equation 4 for b0*x[n]\n        #################################################################\n\
+      \        # This operation will take care of IIR filter of variable length.\n\
+      \        for i in range(1, k):\n            self.output = self.output + (self.inputbuffer[k-i]\
+      \ * self.feedforward_taps[i]) + (self.outputbuffer[k-i]*self.feedbacktaps[i])\n\
+      \            # Fill in with suitable code to implement equation 4 of the manual\
+      \ for i = 1 to M and j= 1 to N. See line 40 & 49 for i=0 & j=0.\n          \
+      \  # This will give you IIR filter of variable filter length/order.\n\n    \
+      \    ###############################################################3\n    \
+      \    self.output /= self.feedbacktaps[0]  # Divide by a0 in case a0!=1 to realize\
+      \ eq.4.\n\n        output_items[0][0] = self.output  # Store output\n      \
+      \  # print(self.output)\n        self.inputbuffer[self.index] = input_items[0][0]\
+      \ # Append inputbuffer\n        self.outputbuffer[self.index] = output_items[0][0]\
+      \ # Append outputbuffer\n        self.index = self.index + 1\n        if(self.index\
+      \ > k):\n            self.inputbuffer = np.zeros(len(self.feedforward_taps))\n\
+      \            self.outputbuffer = np.zeros(len(self.feedbacktaps))\n        \
+      \    self.index = 0\n\n        return 1\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    feedbacktaps: '[1, -4.47267943483745, 8.02708538984154, -7.22388627710097, 3.25922742572155,
+      -0.589657753181134]'
+    feedforward_taps: "[2.79220136016068e-06, 1.39610068008034e-05, 2.79220136016068e-05,\
+      \ 2.79220136016068e-05, 1.39610068008034e-05,\t2.79220136016068e-06]"
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python Block', 'blk', [('feedforward_taps', '[1]'), ('feedbacktaps',
+      '[1]')], [('0', 'float', 1)], [('0', 'float', 1)], 'Embedded Python Block example
+      - a simple multiply const', ['feedbacktaps', 'feedforward_taps'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [944, 476.0]
+    rotation: 0
+    state: disabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: float
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [672, 92.0]
+    rotation: 0
+    state: true
+- name: qtgui_freq_sink_x_0_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: float
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1280, 244.0]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Output"'
+    nconnections: '1'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1280, 364.0]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Input"'
+    nconnections: '1'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 228.0]
+    rotation: 0
+    state: true
+
+connections:
+- [analog_noise_source_x_0, '0', blocks_add_xx_0, '1']
+- [analog_sig_source_x_0, '0', blocks_add_xx_0, '0']
+- [blocks_add_xx_0, '0', blocks_throttle_0, '0']
+- [blocks_add_xx_0, '0', qtgui_freq_sink_x_0, '0']
+- [blocks_add_xx_0, '0', qtgui_time_sink_x_1, '0']
+- [blocks_throttle_0, '0', epy_block_0, '0']
+- [blocks_throttle_0, '0', epy_block_0_0, '0']
+- [blocks_throttle_0, '0', epy_block_0_1, '0']
+- [blocks_wavfile_source_0, '0', blocks_add_xx_0, '0']
+- [epy_block_0, '0', blocks_wavfile_sink_0, '0']
+- [epy_block_0, '0', qtgui_freq_sink_x_0_0, '0']
+- [epy_block_0, '0', qtgui_time_sink_x_0, '0']
+- [epy_block_0_0, '0', blocks_wavfile_sink_0, '0']
+- [epy_block_0_0, '0', qtgui_freq_sink_x_0_0, '0']
+- [epy_block_0_0, '0', qtgui_time_sink_x_0, '0']
+- [epy_block_0_1, '0', blocks_wavfile_sink_0, '0']
+- [epy_block_0_1, '0', qtgui_freq_sink_x_0_0, '0']
+- [epy_block_0_1, '0', qtgui_time_sink_x_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.7.0
